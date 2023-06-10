@@ -52,10 +52,12 @@ def runVideo(model, video, vdo_view, warn):
                 cv2.putText(frame,labels[class_id],(x1,y1-10),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,box_color,2)
             image = Image.fromarray(frame)
             vdo_view.image(image, caption='Current Model Prediction(s)')
-            image.save(osp.join(frames_dir, f'iwm{frame_count}.jpg'))
+            image.save(osp.join(frames_dir, f'{frame_count}.jpg'))
         cap.release()
+        os.system(f'ffmpeg -framerate 1 -pattern_type glob -i {frames_dir}/%d.jpg -c:v libx264 -r 30 -pix_fmt yuv420p {outputpath}')
 
     # Display Video
+    '''
     frame_width = int(width)
     frame_height = int(height)
     frame_files = os.listdir(frames_dir)
@@ -68,6 +70,7 @@ def runVideo(model, video, vdo_view, warn):
         if frame is not None:
             video.write(frame)
     video.release()
+    '''
     output_video = open(outputpath, mode='rb')
     output_video_bytes = output_video.read()
     st.write("Model Prediction")
