@@ -54,7 +54,7 @@ def runVideo(model, video, vdo_view, warn):
             vdo_view.image(image, caption='Current Model Prediction(s)')
             image.save(osp.join(frames_dir, f'{frame_count}.jpg'))
         cap.release()
-        os.system(f'ffmpeg -framerate 1 -pattern_type glob -i {frames_dir}/%d.jpg -c:v libx264 -r 30 -pix_fmt yuv420p {outputpath}')
+        os.system(f'ffmpeg -framerate 30 -i {frames_dir}/%d.jpg -c:v libx264 -pix_fmt yuv420p {outputpath}')
 
     # Display Video
     '''
