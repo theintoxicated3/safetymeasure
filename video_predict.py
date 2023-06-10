@@ -55,6 +55,7 @@ def runVideo(model, video, vdo_view, warn):
             image.save(osp.join(frames_dir, f'{frame_count}.jpg'))
         cap.release()
         os.system(f'ffmpeg -framerate {video_fps} -i {frames_dir}/%d.jpg -c:v libx264 -pix_fmt yuv420p {outputpath}')
+    os.system(f'rm -rf {frames_dir}')
 
     # Display Video
     '''
